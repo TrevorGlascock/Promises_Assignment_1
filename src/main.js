@@ -10,21 +10,18 @@ function getFortune(question) {
 }
 
 function fullSession(question) {
+  let session = [];
   return welcome()
     .then((message) => {
       session.push(message);
-      return message;
+      return question;
     })
-    .then(getFortune(question))
-    .then((message) => {
-      session.push(message);
-    })
+    .then(getFortune)
+    .then((fortune) => (session = session.concat(fortune)))
     .then(goodbye)
-    .then((message) => {
-      session.push(message);
-    });
-
-  return session;
+    .then((message) => session.push(message))
+    .then(() => session)
+    .catch((error) => `There was an error: ${error}`);
 }
 
 module.exports = { getFortune, fullSession };
