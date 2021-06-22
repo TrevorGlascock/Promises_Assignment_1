@@ -12,11 +12,8 @@ function getFortune(question) {
 function fullSession(question) {
   let session = [];
   return welcome()
-    .then((message) => {
-      session.push(message);
-      return question;
-    })
-    .then(getFortune)
+    .then((message) => session.push(message))
+    .then(() => getFortune(question))
     .then((fortune) => (session = session.concat(fortune)))
     .then(goodbye)
     .then((message) => session.push(message))
